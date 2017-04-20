@@ -1,0 +1,12 @@
+QMAKE_LICHECK_TIMESTAMP = "Mon Apr 3"
+QMAKE_DEFAULT_INCDIRS = \
+    /usr/include/c++/5.4.0 \
+    /usr/include/x86_64-linux-gnu/c++/5.4.0 \
+    /usr/include/c++/5.4.0/backward \
+    /usr/local/include \
+    /usr/lib/llvm-3.8/lib/clang/3.8.0/include \
+    /usr/include/x86_64-linux-gnu \
+    /usr/include
+QMAKE_DEFAULT_LIBDIRS = \
+    /lib \
+    /usr/lib
