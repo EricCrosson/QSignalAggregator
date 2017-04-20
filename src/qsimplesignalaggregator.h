@@ -3,7 +3,7 @@
 
 #include <QHash>
 
-#include <QDebug>
+// #include <QDebug>
 
 #include "qsignalaggregator.h"
 
@@ -58,6 +58,13 @@ public:
     auto gate(QObject *sender,
               const char *signal) -> void override;
 
+    // auto printStatus() -> void {
+    //     qDebug() << "Here goes the current status so far";
+    //     QHash<const QObject *, QHash<const QString, int> >::iterator i;
+    //     for (i = lookingFor.begin(); i != lookingFor.end(); ++i)
+    //         qDebug() << i.key() << ": " << i.value() << endl;
+    // }
+
 public slots:
     /**
      * @brief Disregard all previously-witnessed signals and begin
@@ -76,13 +83,6 @@ private:
      * @brief Emit the gated signal.
      */
     auto emitGatedSignal() -> void;
-
-    auto printStatus() -> void {
-        qDebug() << "Here goes the current status so far";
-        QHash<const QObject *, QHash<const QString, int> >::iterator i;
-        for (i = lookingFor.begin(); i != lookingFor.end(); ++i)
-            qDebug() << i.key() << ": " << i.value() << endl;
-    }
 
     /**
      * @brief Convert the <tt>const char *</tt> output of the \c

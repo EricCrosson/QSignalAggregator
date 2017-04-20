@@ -25,6 +25,7 @@ private slots:
     void aggregateOneSignal();
     void aggregatedSignalShouldNotFireMultipleTimesWithMultipleStimuliWithoutReset();
     void resetShouldAllowAggregatorToFireMultipleTimesWithMultipleStimuli();
+    void resetClearsPreviouslyWitnessedSignals();
     void clientCodeIsReadable();
     void canAggregateSignalsWithParameters();
     void canGateCustomSignal();
@@ -116,6 +117,27 @@ void TestQSimpleSignalAggregator::clientCodeIsReadable() {
     emit dummySignal1();
     QCOMPARE(spyTriggered->count(), 0);
 
+    emit dummySignal2();
+    QCOMPARE(spyTriggered->count(), 1);
+}
+
+void TestQSimpleSignalAggregator::resetClearsPreviouslyWitnessedSignals() {
+    QCOMPARE(spyTriggered->count(), 0);
+    aggie->aggregate(this, SIGNAL(dummySignal1()));
+    aggie->aggregate(this, SIGNAL(dummySignal2()));
+    QCOMPARE(spyTriggered->count(), 0);
+
+    emit dummySignal1();
+    QCOMPARE(spyTriggered->count(), 0);
+
+    aggie->reset();
+
+    emit dummySignal2();
+    QCOMPARE(spyTriggered->count(), 0);
+
+    aggie->reset();
+    emit dummySignal1();
+    QCOMPARE(spyTriggered->count(), 0);
     emit dummySignal2();
     QCOMPARE(spyTriggered->count(), 1);
 }

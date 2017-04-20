@@ -19,9 +19,18 @@ auto QSimpleSignalAggregator::convertSignalIntoInvokableMethod(const char *signa
     return normalizedSignal;
 }
 
+// FIXME: introduce thread-safety
 auto QSimpleSignalAggregator::reset() -> void {
     lookingFor = monitor;
-    // lookingFor.detach();
+    // printStatus();
+    foreach (const QObject *sender, lookingFor.keys()) {
+        QHash<const QString, int> senderHash = lookingFor.value(sender);
+        QHash<const QString, int>::iterator i;
+        for (i = senderHash.begin(); i != senderHash.end(); ++i) {
+            connect(sender, qPrintable(i.key()),
+                    this, SLOT(captureSignal()));
+        }
+    }
 }
 
 auto QSimpleSignalAggregator::aggregate(const QObject *sender,
@@ -29,6 +38,7 @@ auto QSimpleSignalAggregator::aggregate(const QObject *sender,
                                         const int occurrences) -> void {
     connect(sender, signal, this, SLOT(captureSignal()));
 
+    // FIXME: replace duplicity with clarity
     QHash<const QString, int> senderHash = lookingFor.value(sender);
     senderHash.insert(signal, occurrences + lookingFor.value(sender).value(signal, 0));
     lookingFor.insert(sender, senderHash);
@@ -37,10 +47,9 @@ auto QSimpleSignalAggregator::aggregate(const QObject *sender,
     monitorHash.insert(signal, occurrences + monitor.value(sender).value(signal, 0));
     monitor.insert(sender, monitorHash);
 
-    printStatus();
+    // printStatus();
 }
 
-// TODO: document that only parametereless signals may be invoked
 auto QSimpleSignalAggregator::gate(QObject *sender,
                                    const char *signal) -> void {
     triggerObject = sender;
@@ -70,7 +79,6 @@ auto QSimpleSignalAggregator::captureSignal() -> void {
 
     if (remaining == 0) {
         senderHash.remove(signal);
-        // TODO: test that the disconnect works appropriately
         disconnect(sender, signal, this, SLOT(captureSignal()));
     } else {
         senderHash.insert(signal, remaining);

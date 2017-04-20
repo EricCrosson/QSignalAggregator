@@ -45,6 +45,9 @@ public:
      * @param sender The object used to emit \c signal when sufficient
      * conditions are met.
      *
+     * \b Note: Only signals without parameters may be invoked at this
+     * time.
+     *
      * @param signal The signal to emit when all monitored signals
      * have been aggregated
      */
