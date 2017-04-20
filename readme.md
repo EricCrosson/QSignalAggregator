@@ -27,6 +27,16 @@ Emit the specified object's signal when all monitored signals have
 been witnessed (rather than the default `done()` from the
 `QSignalAggregator` object.
 
+## Make targets
+
+### test
+
+Build tests, placed in `build/test/bin`.
+
+### doc
+
+Build doxygen documentation, placed in `doc`.
+
 ## License
 
 MIT © Eric Crosson
