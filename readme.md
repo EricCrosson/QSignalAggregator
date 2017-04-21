@@ -33,6 +33,10 @@ Forget about witnessed signals and start monitoring for all
 
 ## Make targets
 
+### all
+
+Compile into a static library, placed in `build/lib`.
+
 ### test
 
 Build tests, placed in `build/test/bin`.
