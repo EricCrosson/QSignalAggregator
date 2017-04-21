@@ -2,7 +2,7 @@
 addons:
   apt:
     packages:
-      qt5base-dev
+      - qt5-default
 
 script:
   - make test
