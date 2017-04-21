@@ -1,0 +1,9 @@
+---
+addons:
+  apt:
+    packages:
+      qt5base-dev
+
+script:
+  - make test
+  - find ./build/test/bin -type f -print0 | xargs -n 1 -0
