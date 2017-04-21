@@ -6,14 +6,14 @@
 ## Usage
 
 ```bash
-QSimpleSignalAggregator *aggie = new QSimpleSignalAggregator(this);
-QObject::connect(aggie, SIGNAL(done()), this, SLOT(allSignalsInvoked()));
-aggie->aggregate(voicemailProvider, SIGNAL(done()));
-aggie->aggregate(wallpaperProvider, SIGNAL(done()));
+QSimpleSignalAggregator *aggregator = new QSimpleSignalAggregator(this);
+QObject::connect(aggregator, SIGNAL(done()), this, SLOT(allSignalsInvoked()));
+aggregator->aggregate(foo, SIGNAL(done()));
+aggregator->aggregate(bar, SIGNAL(done()));
 ```
 
-As soon as `voicemailProvider::done()` *and*
-`wallpaperProvider::done()` are emitted, `aggie::done()` is emitted.
+As soon as `foo::done()` *and* `bar::done()` are emitted,
+`aggregator::done()` is emitted.
 
 ## API
 
