@@ -27,6 +27,11 @@ Emit the specified object's signal when all monitored signals have
 been witnessed (rather than the default `done()` from the
 `QSignalAggregator` object.
 
+### reset()
+
+Forget about witnessed signals and start monitoring for all
+`aggregated` signals again.
+
 ## Make targets
 
 ### test
