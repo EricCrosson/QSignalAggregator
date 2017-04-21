@@ -37,6 +37,7 @@ private:
     QSignalSpy *spyTriggered;
 };
 
+
 void TestQSimpleSignalAggregator::init() {
     aggie = new QSimpleSignalAggregator(this);
     spyTriggered = new QSignalSpy(aggie, SIGNAL(done()));
@@ -45,6 +46,10 @@ void TestQSimpleSignalAggregator::init() {
 void TestQSimpleSignalAggregator::cleanup() {
     delete spyTriggered;
     delete aggie;
+}
+
+void TestQSimpleSignalAggregator::testSuperfluousSignalsAreIgnored() {
+
 }
 
 void TestQSimpleSignalAggregator::testClientCodeWithoutPointer() {

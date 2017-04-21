@@ -16,15 +16,21 @@
  * Here is client code with a simple use-case:
  *
  * \code{.cpp}
- * QSimpleSignalAggregator *aggie = new QSimpleSignalAggregator(this);
- * QObject::connect(aggie, SIGNAL(done()), this, SLOT(allSignalsInvoked()));
- * aggie->aggregate(voicemailProvider, SIGNAL(done()));
- * aggie->aggregate(wallpaperProvider, SIGNAL(done()));
+ * QSimpleSignalAggregator *aggregator = new QSimpleSignalAggregator(this);
+ * QObject::connect(aggregator, SIGNAL(done()), this, SLOT(allSignalsInvoked()));
+ * aggregator->aggregate(foo, SIGNAL(done()));
+ * aggregator->aggregate(bar, SIGNAL(done()));
  * \endcode
  *
- * When both of \c voicemailProvider and \c directoryProvider have
- * fired their respective \c done() signals, \c aggie will fire its
- * \c done() signal.
+ * Here, \c aggregator will emit \c done() only after both \c
+ * foo::done() and \c bar::done() have been emitted.
+ *
+ * To turn this one-shot behavior into a continuous process, chain the
+ * \c done() signal into the same object's \c reset() slot.
+ *
+ * \code{.cpp}
+ * QObject::connect(aggregator, SIGNAL(done()), aggregator, SLOT(reset()));
+ * \endcode
  *
  * @see QSignalAggregator
  */
@@ -38,6 +44,8 @@ public:
      * @param parent Parent QObject of the new aggregator.
      */
     QSimpleSignalAggregator(QObject *parent);
+
+    // TODO: support initializer list of sender & signal pairs
 
     /**
      * @brief Destructor
@@ -91,6 +99,9 @@ private:
      *
      * \b Note: currently does not support methods with signatures
      * (e.g. only methods ending in \c () are supported).
+     *
+     * \todo Support emitting a signal with parameters
+     * http://stackoverflow.com/questions/7721923/calling-qmetaobjectinvokemethod-with-variable-amount-of-parameters
      *
      * @param signal Signal to extract method name from.
      */

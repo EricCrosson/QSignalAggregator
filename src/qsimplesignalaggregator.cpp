@@ -11,7 +11,7 @@ QSimpleSignalAggregator::QSimpleSignalAggregator(QObject *parent) :
 
 auto QSimpleSignalAggregator::convertSignalIntoInvokableMethod(const char *signal)
     -> QString {
-    // Index the char* to remove the "2" prefix added by SIGNAL()
+    // Index the char* to remove the "2" prefix added by SIGNAL() macro
     QString normalizedSignal = QString(signal+1);
     // Remove parentheses (subsequently added back by
     // QMetaObject::invokeMethod)
@@ -38,13 +38,14 @@ auto QSimpleSignalAggregator::aggregate(const QObject *sender,
                                         const int occurrences) -> void {
     connect(sender, signal, this, SLOT(captureSignal()));
 
-    // FIXME: replace duplicity with clarity
     QHash<const QString, int> senderHash = lookingFor.value(sender);
-    senderHash.insert(signal, occurrences + lookingFor.value(sender).value(signal, 0));
+    senderHash.insert(signal, occurrences +
+                      lookingFor.value(sender).value(signal, 0));
     lookingFor.insert(sender, senderHash);
 
     QHash<const QString, int> monitorHash = monitor.value(sender);
-    monitorHash.insert(signal, occurrences + monitor.value(sender).value(signal, 0));
+    monitorHash.insert(signal, occurrences +
+                       monitor.value(sender).value(signal, 0));
     monitor.insert(sender, monitorHash);
 
     // printStatus();

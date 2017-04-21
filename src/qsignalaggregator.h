@@ -7,6 +7,10 @@
  * @interface QSignalAggregator
  * @brief Interface for an object acting as a Qt Signal aggregator.
  *
+ * A signal aggregator acts as a
+ * <a href="https://en.wikipedia.org/wiki/Barrier_(computer_science)">barrier</a>,
+ * listening for multiple signals before emitting a gated signal.
+ *
  * @see QSimpleSignalAggregator
  */
 class QSignalAggregator : public QObject {
