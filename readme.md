@@ -25,7 +25,7 @@ Add the sender's specified signal to the list of monitored signals.
 
 Emit the specified object's signal when all monitored signals have
 been witnessed (rather than the default `done()` from the
-`QSignalAggregator` object.
+`QSignalAggregator` object).
 
 ### reset()
 
