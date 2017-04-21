@@ -31,6 +31,7 @@ private slots:
     void canGateCustomSignal();
     // void canGateSignalsWithParameters();
     void testClientCodeWithoutPointer();
+    void testSuperfluousSignalsAreIgnored();
 
 private:
     QSimpleSignalAggregator *aggie;
@@ -49,7 +50,19 @@ void TestQSimpleSignalAggregator::cleanup() {
 }
 
 void TestQSimpleSignalAggregator::testSuperfluousSignalsAreIgnored() {
+    QCOMPARE(spyTriggered->count(), 0);
+    aggie->aggregate(this, SIGNAL(dummySignal1()));
+    aggie->aggregate(this, SIGNAL(dummySignal2()));
+    QCOMPARE(spyTriggered->count(), 0);
 
+    emit dummySignal1();
+    QCOMPARE(spyTriggered->count(), 0);
+    emit dummySignal1();
+    emit dummySignal1();
+    emit dummySignal1();
+    QCOMPARE(spyTriggered->count(), 0);
+    emit dummySignal2();
+    QCOMPARE(spyTriggered->count(), 1);
 }
 
 void TestQSimpleSignalAggregator::testClientCodeWithoutPointer() {
