@@ -1,7 +1,6 @@
 # QSignalAggregator
 
-> Monitor multiple signals to aggregate them into one signal-based
-> event.
+> Barrier for Qt signals.
 
 ## Usage
 
