@@ -1,8 +1,15 @@
 ---
 addons:
   apt:
+    sources:
+      - ppa:ubuntu-sdk-team/ppa
     packages:
+      - qtbase5-dev
+      - qtdeclarative5-dev
+      - libqt5webkit5-dev
+      - libsqlite3-dev
       - qt5-default
+      - qttools5-dev-tools
 
 script:
   - make test
