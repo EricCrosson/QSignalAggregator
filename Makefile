@@ -16,14 +16,14 @@ endif
 all:
 	mkdir -p $(BUILDDIR); \
 	cd $(BUILDDIR); \
-	$(QMAKE) -spec linux-clang "DEFINES += DEBUG_STARTS_ON" ..; \
+	$(QMAKE) "DEFINES += DEBUG_STARTS_ON" ..; \
 	make -j$$(nproc);
 
 .PHONY: test
 test:
 	mkdir -p $(BUILDDIR); \
 	cd $(BUILDDIR); \
-	$(QMAKE) -spec linux-clang "CONFIG += test" ..; \
+	$(QMAKE) "CONFIG += test" ..; \
 	make -j$$(nproc);
 
 .PHONY: doc
