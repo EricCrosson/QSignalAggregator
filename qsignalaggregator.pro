@@ -2,6 +2,8 @@
 
 TEMPLATE = subdirs
 
+QMAKE_CXXFLAGS += -std=c++14
+
 CONFIG += silent
 
 test{
