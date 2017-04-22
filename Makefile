@@ -10,7 +10,6 @@ QMAKE=$(shell which qmake)
 all:
 ifndef QMAKE_VERSION
 $(error "dot is not available please install graphviz")
-else
 QMAKE=/opt/Qt/5.8/*_64/bin/qmake
 endif
 
