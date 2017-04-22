@@ -2,9 +2,9 @@
 
 TEMPLATE = subdirs
 
-QMAKE_CXXFLAGS += -std=c++14
-
 CONFIG += silent
+
+QT -= gui
 
 test{
   message(Configuring the test build...)
