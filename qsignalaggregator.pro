@@ -2,9 +2,9 @@
 
 TEMPLATE = subdirs
 
-QMAKE_CXXFLAGS += -std=c++11
-
-CONFIG += silent
+CONFIG += \
+  c++14 \
+  silent
 
 QT -= gui
 
