@@ -7,14 +7,14 @@ DOCDIR=doc
 all:
 	mkdir -p $(BUILDDIR); \
 	cd $(BUILDDIR); \
-	/opt/Qt/5.8/*_64/bin/qmake -spec linux-clang "DEFINES += DEBUG_STARTS_ON" ..; \
+	qmake -spec linux-clang "DEFINES += DEBUG_STARTS_ON" ..; \
 	make -j$$(nproc);
 
 .PHONY: test
 test:
 	mkdir -p $(BUILDDIR); \
 	cd $(BUILDDIR); \
-	/opt/Qt/5.8/*_64/bin/qmake -spec linux-clang "CONFIG += test" ..; \
+	qmake -spec linux-clang "CONFIG += test" ..; \
 	make -j$$(nproc);
 
 .PHONY: doc
